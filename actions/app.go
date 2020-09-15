@@ -60,6 +60,8 @@ func App() *buffalo.App {
 		app.Use(translations())
 
 		app.GET("/", HomeHandler)
+		app.GET("/calculate", CalculateShow)
+		app.POST("/calculate", Calculate)
 
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
@@ -73,9 +75,16 @@ func App() *buffalo.App {
 // for more information: https://gobuffalo.io/en/docs/localization
 func translations() buffalo.MiddlewareFunc {
 	var err error
-	if T, err = i18n.New(packr.New("app:locales", "../locales"), "en-US"); err != nil {
-		app.Stop(err)
+	T, err = i18n.New(packr.New("app:locales", "../locales"), "en-US")
+	if err == nil {
+		return T.Middleware()
 	}
+
+	err = app.Stop(err)
+	if err != nil {
+		app.Logger.Error(err)
+	}
+
 	return T.Middleware()
 }
 
