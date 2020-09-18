@@ -1,6 +1,8 @@
 package actions
 
 import (
+	"calculator/actions/helpers"
+
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr/v2"
 )
@@ -23,6 +25,8 @@ func init() {
 			// below and import "github.com/gobuffalo/helpers/forms"
 			// forms.FormKey:     forms.Form,
 			// forms.FormForKey:  forms.FormFor,
+			"themeName":     helpers.ThemeName,
+			"themeProperty": helpers.ThemeProperty,
 		},
 	})
 }

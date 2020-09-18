@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-center p-5">
+    <div class="d-flex flex-column w-66">
+        <h2 class="mb-4 <%= themeProperty("text") %>">StringCalculator for</h2>
+        <div class="d-flex">
+            <%= form({action: themePath(), method: "POST", class:"mr-4", id: "set-theme-form"}) { %>
+                <div class="form-check">
+                    <input class="form-check-input theme-radio" type="radio" name="Name" id="night-theme" value="night" <%= if (themeName() == "night") { %>checked<%}%>>
+                    <label class="form-check-label <%= themeProperty("text") %>" for="night-theme">Night</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input theme-radio" type="radio" name="Name" id="day-theme" value="day" <%= if (themeName() == "day") { %>checked<%}%>>
+                    <label class="form-check-label <%= themeProperty("text") %>" for="day-theme">Day</label>
+                </div>
+            <% } %>
+            <%= form({action: calculatePath(), method: "POST", class:"d-flex w-100 mr-auto"}) { %>
+                <div class="form-group w-100 mr-auto pr-3">
+                    <%= f.InputTag({ class: themeProperty("secondary-background"), name:"Expression", placeholder: "Type your expression...", value: calculator.Expression }) %>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary <%= themeProperty("button") %>">CALCULATE</button>
+                </div>
+            <% } %>
+        </div>
+        <span class="text-center <%= themeProperty("text") %> font-100"><%= calculator.Result %></span>
+    </div>
+</div>
